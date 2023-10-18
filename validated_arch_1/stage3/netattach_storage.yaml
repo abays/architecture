@@ -18,7 +18,7 @@ spec:
       "cniVersion": "0.3.1",
       "name": "storage",
       "type": "macvlan",
-      "master": "enp7s0.21",
+      "master": "enp3s0.21",
       "ipam": {
         "type": "whereabouts",
         "range": "172.18.0.0/24",

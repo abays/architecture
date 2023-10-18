@@ -36,11 +36,11 @@ spec:
       app: openstack
     bmhNamespace: openshift-machine-api
     cloudUserName: cloud-admin
-    ctlplaneInterface: enp7s0 # CHANGEME
+    ctlplaneInterface: enp3s0
     passwordSecret:
       name: baremetalset-password-secret
       namespace: openstack
-    provisioningInterface: enp1s0 # CHANGEME
+    provisioningInterface: enp1s0
   env:
     - name: ANSIBLE_CALLBACKS_ENABLED
       value: profile_tasks
@@ -55,7 +55,6 @@ spec:
       ansiblePort: 22
       ansibleUser: cloud-admin
       ansibleVars:
-        # CHANGEME
         edpm_chrony_ntp_servers:
           - clock.redhat.com
         # CHANGEME -- see https://access.redhat.com/solutions/253273
@@ -65,7 +64,6 @@ spec:
         edpm_iscsid_image: '{{ registry_url }}/openstack-iscsid:{{ image_tag }}'
         edpm_logrotate_crond_image: '{{ registry_url }}/openstack-cron:{{ image_tag }}'
         edpm_network_config_hide_sensitive_logs: false
-        # CHANGEME (network_config[0].members[0].name) ---v
         edpm_network_config_template: |
           ---
           {% set mtu_list = [ctlplane_mtu] %}
@@ -85,7 +83,7 @@ spec:
             routes: {{ ctlplane_host_routes }}
             members:
             - type: interface
-              name: enp7s0
+              name: enp3s0
               mtu: {{ min_viable_mtu }}
               # force the MAC address of the bridge to this interface
               primary: true
@@ -106,7 +104,7 @@ spec:
         edpm_ovn_controller_agent_image: '{{ registry_url }}/openstack-ovn-controller:{{ image_tag }}'
         edpm_selinux_mode: enforcing
         edpm_sshd_allowed_ranges:
-          - 192.168.122.0/24 # CHANGEME
+          - 192.168.122.0/24
         edpm_sshd_configure_firewall: true
         enable_debug: false
         gather_facts: false
@@ -125,8 +123,8 @@ spec:
           - ceph_nfs
           - ceph_rgw_frontend
           - ceph_nfs_frontend
-        storage_mtu: 9000
-        storage_mgmt_mtu: 9000
+        storage_mtu: 1500
+        storage_mgmt_mtu: 1500
         storage_mgmt_vlan_id: 23
         storage_mgmt_cidr: "24"
         storage_mgmt_host_routes: []

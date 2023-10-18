@@ -16,4 +16,4 @@ spec:
   resources:
     requests:
       storage: 5Gi  # CHANGEME
-  storageClassName: local-storage
+  storageClassName: crc-csi-hostpath-provisioner

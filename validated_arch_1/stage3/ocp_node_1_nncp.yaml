@@ -7,79 +7,97 @@ apiVersion: nmstate.io/v1
 kind: NodeNetworkConfigurationPolicy
 metadata:
   labels:
-    osp/interface: enp7s0 # CHANGEME
-  name: enp7s0-ostest-master-1 # CHANGEME
+    osp/interface: enp3s0
+  name: enp3s0-master-1
 spec:
   desiredState:
     dns-resolver:
       config:
         search: []
         server:
-        - 192.168.122.1 # CHANGEME
-    routes:
-      config:
-      - destination: 0.0.0.0/0
-        next-hop-address: 192.168.122.1 # CHANGEME
-        next-hop-interface: enp7s0 # CHANGEME
+        - 192.168.122.1
+        - 10.47.242.10
+        - 10.38.5.26
     interfaces:
     - description: internalapi vlan interface
       ipv4:
         address:
         - ip: 172.17.0.6
           prefix-length: 24
-        enabled: true
         dhcp: false
+        enabled: true
       ipv6:
         enabled: false
-      name: enp7s0.20 # CHANGEME
+      name: enp3s0.20
       state: up
       type: vlan
       vlan:
-        base-iface: enp7s0 # CHANGEME
+        base-iface: enp3s0
         id: 20
     - description: storage vlan interface
       ipv4:
         address:
         - ip: 172.18.0.6
           prefix-length: 24
-        enabled: true
         dhcp: false
+        enabled: true
       ipv6:
         enabled: false
-      name: enp7s0.21 # CHANGEME
+      name: enp3s0.21
       state: up
       type: vlan
       vlan:
-        base-iface: enp7s0 # CHANGEME
+        base-iface: enp3s0
         id: 21
     - description: tenant vlan interface
       ipv4:
         address:
         - ip: 172.19.0.6
           prefix-length: 24
-        enabled: true
         dhcp: false
+        enabled: true
       ipv6:
         enabled: false
-      name: enp7s0.22 # CHANGEME
+      name: enp3s0.22
       state: up
       type: vlan
       vlan:
-        base-iface: enp7s0 # CHANGEME
+        base-iface: enp3s0
         id: 22
-    - description: Configuring enp7s0 # CHANGEME
+    - description: Configuring enp3s0
       ipv4:
         address:
-        - ip: 192.168.122.11 # CHANGEME
+        - ip: 192.168.122.11
           prefix-length: 24
-        enabled: true
         dhcp: false
+        enabled: true
       ipv6:
         enabled: false
-      mtu: 9000
-      name: enp7s0 # CHANGEME
+      mtu: 1500
+      name: enp3s0
+      state: up
+      type: ethernet
+    - description: Configuring enp2s0
+      ipv4:
+        dhcp: true
+        enabled: true
+      ipv6:
+        enabled: false
+      name: enp2s0
+      state: up
+      type: ethernet
+    - description: Configuring enp1s0
+      ipv4:
+        auto-dns: false
+        auto-gateway: false
+        auto-routes: false
+        dhcp: true
+        enabled: true
+      ipv6:
+        enabled: false
+      name: enp1s0
       state: up
       type: ethernet
   nodeSelector:
-    kubernetes.io/hostname: ostest-master-1 # CHANGEME
+    kubernetes.io/hostname: master-1
     node-role.kubernetes.io/worker: ""

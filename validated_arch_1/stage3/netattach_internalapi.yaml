@@ -18,7 +18,7 @@ spec:
       "cniVersion": "0.3.1",
       "name": "internalapi",
       "type": "macvlan",
-      "master": "enp7s0.20",
+      "master": "enp3s0.20",
       "ipam": {
         "type": "whereabouts",
         "range": "172.17.0.0/24",
