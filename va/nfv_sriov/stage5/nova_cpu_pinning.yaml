@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cpu-pinning-nova
+data:
+  25-cpu-pinning-nova.conf: |
+    [compute]
+    cpu_shared_set = 0-3,24-27
+    cpu_dedicated_set = 8-23,32-47
+    reserved_host_memory_mb = 4096
+
+---
+apiVersion: dataplane.openstack.org/v1beta1
+kind: OpenStackDataPlaneService
+metadata:
+  name: nova-cpu-pinning
+spec:
+  label: dataplane-deployment-nova-cpup
+  configMaps:
+    - cpu-pinning-nova
+  secrets:
+    - nova-cell1-compute-config
+    - nova-migration-ssh-key
+  playbook: osp.edpm.nova
