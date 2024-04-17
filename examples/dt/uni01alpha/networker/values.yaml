@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: edpm-networker-values
+  name: edpm-values
   annotations:
     config.kubernetes.io/local-config: "true"
 
@@ -138,3 +138,9 @@ data:
       - install-certs
       - ovn
       - neutron-metadata
+
+  nova:
+    migration:
+      ssh_keys:
+        private: PLACEHOLDER
+        public: PLACEHOLDER

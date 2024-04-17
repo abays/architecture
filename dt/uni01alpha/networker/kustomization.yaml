@@ -16,12 +16,19 @@ transformers:
         kind: Namespace
         create: true
 
-resources:
-  - dataplane-ssh-secret.yaml
-  - openstackdataplanenodeset.yaml
-  - openstackdataplanedeployment.yaml
+components:
+  - ../../../lib/dataplane
 
 patches:
+  - target:
+      kind: Secret
+      name: nova-migration-ssh-key
+    patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          config.kubernetes.io/local-config: true
+
   - target:
       kind: OpenStackDataPlaneDeployment
       name: .*
@@ -46,91 +53,3 @@ patches:
       - op: replace
         path: /metadata/name
         value: networker-nodes
-
-replacements:
-  - source:
-      kind: ConfigMap
-      name: edpm-networker-values
-      fieldPath: data.nodeset.ansible
-    targets:
-      - select:
-          kind: OpenStackDataPlaneNodeSet
-        fieldPaths:
-          - spec.nodeTemplate.ansible
-        options:
-          create: true
-
-  - source:
-      kind: ConfigMap
-      name: edpm-networker-values
-      fieldPath: data.nodeset.networks
-    targets:
-      - select:
-          kind: OpenStackDataPlaneNodeSet
-        fieldPaths:
-          - spec.nodeTemplate.networks
-        options:
-          create: true
-
-  - source:
-      kind: ConfigMap
-      name: edpm-networker-values
-      fieldPath: data.nodeset.nodes
-    targets:
-      - select:
-          kind: OpenStackDataPlaneNodeSet
-        fieldPaths:
-          - spec.nodes
-        options:
-          create: true
-
-  - source:
-      kind: ConfigMap
-      name: edpm-networker-values
-      fieldPath: data.nodeset.services
-    targets:
-      - select:
-          kind: OpenStackDataPlaneNodeSet
-        fieldPaths:
-          - spec.services
-        options:
-          create: true
-
-  - source:
-      kind: ConfigMap
-      name: edpm-networker-values
-      fieldPath: data.ssh_keys.authorized
-    targets:
-      - select:
-          kind: Secret
-          name: dataplane-ansible-ssh-private-key-secret
-        fieldPaths:
-          - data.authorized_keys
-        options:
-          create: true
-
-  - source:
-      kind: ConfigMap
-      name: edpm-networker-values
-      fieldPath: data.ssh_keys.private
-    targets:
-      - select:
-          kind: Secret
-          name: dataplane-ansible-ssh-private-key-secret
-        fieldPaths:
-          - data.ssh-privatekey
-        options:
-          create: true
-
-  - source:
-      kind: ConfigMap
-      name: edpm-networker-values
-      fieldPath: data.ssh_keys.public
-    targets:
-      - select:
-          kind: Secret
-          name: dataplane-ansible-ssh-private-key-secret
-        fieldPaths:
-          - data.ssh-publickey
-        options:
-          create: true
