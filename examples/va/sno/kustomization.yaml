@@ -1,0 +1,65 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+components:
+  - ../../../va/sno/
+  # - https://github.com/openstack-k8s-operators/architecture/va/sno?ref=main
+  ## It's possible to replace ../../../va/sno/ with a git checkout URL as per:
+  ## https://github.com/kubernetes-sigs/kustomize/blob/master/examples/remoteBuild.md
+
+resources:
+  - nncp/values.yaml
+  - service-values.yaml
+
+replacements:
+  # Replicas for having one OCP node only
+  - source:
+      kind: ConfigMap
+      name: service-values
+      fieldPath: data.galera.replicas
+    targets:
+      - select:
+          kind: OpenStackControlPlane
+        fieldPaths:
+          - spec.galera.templates.openstack.replicas
+          - spec.galera.templates.openstack-cell1.replicas
+        options:
+          create: true
+  - source:
+      kind: ConfigMap
+      name: service-values
+      fieldPath: data.memcached.replicas
+    targets:
+      - select:
+          kind: OpenStackControlPlane
+        fieldPaths:
+          - spec.memcached.templates.memcached.replicas
+        options:
+          create: true
+  - source:
+      kind: ConfigMap
+      name: service-values
+      fieldPath: data.rabbitmq.replicas
+    targets:
+      - select:
+          kind: OpenStackControlPlane
+        fieldPaths:
+          - spec.rabbitmq.templates.rabbitmq.replicas
+          - spec.rabbitmq.templates.rabbitmq-cell1.replicas
+        options:
+          create: true
+
+  # Galera storage increase
+  - source:
+      kind: ConfigMap
+      name: service-values
+      fieldPath: data.galera.storageRequest
+    targets:
+      - select:
+          kind: OpenStackControlPlane
+        fieldPaths:
+          - spec.galera.templates.openstack.storageRequest
+          - spec.galera.templates.openstack-cell1.storageRequest
+        options:
+          create: true

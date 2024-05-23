@@ -1,0 +1,44 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+transformers:
+  # Set namespace to OpenStack on all namespaced objects without a namespace
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: _ignored_
+      namespace: openstack
+    setRoleBindingSubjects: none
+    unsetOnly: true
+    fieldSpecs:
+      - path: metadata/name
+        kind: Namespace
+        create: true
+
+components:
+  - ../../../../lib/nncp
+
+resources:
+  - values.yaml
+
+patches:
+  # Customizations for one OCP node only
+  - target:
+      kind: NodeNetworkConfigurationPolicy
+      name: IGNORED1
+    patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          config.kubernetes.io/local-config: true
+
+  - target:
+      kind: NodeNetworkConfigurationPolicy
+      name: IGNORED2
+    patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          config.kubernetes.io/local-config: true
