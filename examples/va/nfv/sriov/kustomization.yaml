@@ -11,3 +11,40 @@ components:
 resources:
   - nncp/values.yaml
   - service-values.yaml
+
+replacements:
+  - source:
+      kind: ConfigMap
+      name: service-values
+      fieldPath: data.galera.replicas
+    targets:
+      - select:
+          kind: OpenStackControlPlane
+        fieldPaths:
+          - spec.galera.templates.openstack.replicas
+          - spec.galera.templates.openstack-cell1.replicas
+        options:
+          create: true
+  - source:
+      kind: ConfigMap
+      name: service-values
+      fieldPath: data.memcached.replicas
+    targets:
+      - select:
+          kind: OpenStackControlPlane
+        fieldPaths:
+          - spec.memcached.templates.memcached.replicas
+        options:
+          create: true
+  - source:
+      kind: ConfigMap
+      name: service-values
+      fieldPath: data.rabbitmq.replicas
+    targets:
+      - select:
+          kind: OpenStackControlPlane
+        fieldPaths:
+          - spec.rabbitmq.templates.rabbitmq.replicas
+          - spec.rabbitmq.templates.rabbitmq-cell1.replicas
+        options:
+          create: true

@@ -10,3 +10,5 @@ components:
 
 resources:
   - values.yaml
+  - repo-setup.yaml
+  - network-cloudinit.yaml

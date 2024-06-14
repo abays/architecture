@@ -7,12 +7,16 @@ metadata:
   annotations:
     config.kubernetes.io/local-config: "true"
 data:
+  galera:
+    replicas: 1
+  memcached:
+    replicas: 1
+  rabbitmq:
+    replicas: 1
   neutron:
     customServiceConfig: |
-      [ml2]
-      mechanism_drivers = ovn,sriovnicswitch
-      [ml2_type_vlan]
-      network_vlan_ranges = sriov-phy4
+      [default]
+      debug = True
   ovn:
     ovnController:
       nicMappings:
