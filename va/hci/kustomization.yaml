@@ -21,6 +21,7 @@ components:
   - ../../lib/networking/metallb
   - ../../lib/networking/netconfig
   - ../../lib/networking/nad
+  - networking/nad
   - ../../lib/control-plane
 
 # Add storagemgmt network template, as it is needed for CephHCI
