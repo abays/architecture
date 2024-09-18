@@ -20,12 +20,6 @@ transformers:
 resources:
   - ocp_networks_netattach.yaml
 
-patches:
-  - target:
-      kind: NetworkAttachmentDefinition
-      labelSelector: "osp/net-attach-def-type=standard"
-    path: ocp_network_template.yaml
-
 replacements:
   - source:
       kind: ConfigMap
@@ -37,3 +31,5 @@ replacements:
           name: swift
         fieldPaths:
           - spec.config
+        options:
+          create: true
