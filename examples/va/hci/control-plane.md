@@ -14,16 +14,16 @@ Change to the hci directory
 ```
 cd architecture/examples/va/hci
 ```
-Edit the [control-plane/nncp/values.yaml](control-plane/nncp/values.yaml) file to suit your environment.
+Edit the [control-plane/network/nncp/values.yaml](control-plane/network/nncp/values.yaml) file to suit your environment.
 ```
-vi control-plane/nncp/values.yaml
+vi control-plane/network/nncp/values.yaml
 ```
 
 ## Apply node network configuration
 
 Generate the node network configuration
 ```
-kustomize build control-plane/nncp > nncp.yaml
+kustomize build control-plane/network/nncp > nncp.yaml
 ```
 Apply the NNCP CRs
 ```
@@ -32,6 +32,17 @@ oc apply -f nncp.yaml
 Wait for NNCPs to be available
 ```
 oc wait nncp -l osp/nncm-config-type=standard --for jsonpath='{.status.conditions[0].reason}'=SuccessfullyConfigured --timeout=300s
+```
+
+## Apply remaining networking configuration
+
+Generate the reminaing network configuration
+```
+kustomize build control-plane/network > network.yaml
+```
+Apply the network CRs
+```
+oc apply -f network.yaml
 ```
 
 ## Apply networking and control-plane configuration
