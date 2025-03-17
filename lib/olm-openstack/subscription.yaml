@@ -6,6 +6,5 @@ metadata:
   namespace: openstack-operators
 spec:
   name: openstack-operator
-  channel: alpha
   source: openstack-operator-index
   sourceNamespace: openstack-operators
