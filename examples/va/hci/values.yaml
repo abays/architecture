@@ -16,6 +16,7 @@ data:
       - ceph-hci-pre
       - configure-os
       - ssh-known-hosts
+      - edpm-custom-docker-policy
       - run-os
       - reboot-os
       - install-certs

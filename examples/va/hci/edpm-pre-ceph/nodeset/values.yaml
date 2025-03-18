@@ -19,6 +19,9 @@ data:
     ansible:
       ansibleUser: cloud-admin
       ansiblePort: 22
+      ansibleVarsFrom:
+        - secretRef:
+            name: brew-registry
       ansibleVars:
         timesync_ntp_servers:
           - hostname: pool.ntp.org
