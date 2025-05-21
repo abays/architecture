@@ -7,3 +7,15 @@ metadata:
     config.kubernetes.io/local-config: "true"
 data:
   preserveJobs: false
+  telemetry:
+    enabled: true
+    metricStorage:
+      enabled: true
+    ceilometer:
+      enabled: true
+    autoscaling:
+      enabled: true
+    logging:
+      enabled: true
+  heat:
+    enabled: true
