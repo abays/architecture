@@ -18,7 +18,104 @@ transformers:
         create: true
 
 components:
-  - ../../../../../lib/nncp-bm
+  - ../../../../../lib/nncp
 
 resources:
   - values.yaml
+
+patches:
+  # Inject external interface into NodeNetworkConfigurationPolicy resources
+  - target:
+      kind: NodeNetworkConfigurationPolicy
+      labelSelector: "osp/nncm-config-type=standard"
+    patch: |-
+      - op: add
+        path: /spec/desiredState/interfaces/-
+        value:
+          description: external vlan interface
+          ipv4:
+            address:
+              - ip: _replaced_
+                prefix-length: _replaced_
+            enabled: true
+            dhcp: false
+          ipv6:
+            enabled: false
+          name: external
+          state: up
+          type: vlan
+          vlan:
+            base-iface: _replaced_
+            id: _replaced_
+          mtu: 1500
+
+replacements:
+  # External interface common configuration
+  - source:
+      kind: ConfigMap
+      name: network-values
+      fieldPath: data.external.base_iface
+    targets:
+      - select:
+          kind: NodeNetworkConfigurationPolicy
+        fieldPaths:
+          - spec.desiredState.interfaces.[name=external].vlan.base-iface
+  - source:
+      kind: ConfigMap
+      name: network-values
+      fieldPath: data.external.vlan
+    targets:
+      - select:
+          kind: NodeNetworkConfigurationPolicy
+        fieldPaths:
+          - spec.desiredState.interfaces.[name=external].vlan.id
+  - source:
+      kind: ConfigMap
+      name: network-values
+      fieldPath: data.external.mtu
+    targets:
+      - select:
+          kind: NodeNetworkConfigurationPolicy
+        fieldPaths:
+          - spec.desiredState.interfaces.[name=external].mtu
+  - source:
+      kind: ConfigMap
+      name: network-values
+      fieldPath: data.external.prefix-length
+    targets:
+      - select:
+          kind: NodeNetworkConfigurationPolicy
+        fieldPaths:
+          - spec.desiredState.interfaces.[name=external].ipv4.address.0.prefix-length
+
+  # External interface IP addresses per node
+  - source:
+      kind: ConfigMap
+      name: network-values
+      fieldPath: data.node_0.external_ip
+    targets:
+      - select:
+          kind: NodeNetworkConfigurationPolicy
+          labelSelector: "osp/nncp-node=node-0"
+        fieldPaths:
+          - spec.desiredState.interfaces.[name=external].ipv4.address.0.ip
+  - source:
+      kind: ConfigMap
+      name: network-values
+      fieldPath: data.node_1.external_ip
+    targets:
+      - select:
+          kind: NodeNetworkConfigurationPolicy
+          labelSelector: "osp/nncp-node=node-1"
+        fieldPaths:
+          - spec.desiredState.interfaces.[name=external].ipv4.address.0.ip
+  - source:
+      kind: ConfigMap
+      name: network-values
+      fieldPath: data.node_2.external_ip
+    targets:
+      - select:
+          kind: NodeNetworkConfigurationPolicy
+          labelSelector: "osp/nncp-node=node-2"
+        fieldPaths:
+          - spec.desiredState.interfaces.[name=external].ipv4.address.0.ip
