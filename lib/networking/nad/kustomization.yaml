@@ -53,13 +53,4 @@ replacements:
           name: tenant
         fieldPaths:
           - spec.config
-  - source:
-      kind: ConfigMap
-      name: network-values
-      fieldPath: data.datacentre.net-attach-def
-    targets:
-      - select:
-          kind: NetworkAttachmentDefinition
-          name: datacentre
-        fieldPaths:
-          - spec.config
+

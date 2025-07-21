@@ -116,7 +116,7 @@ replacements:
   - source:
       kind: ConfigMap
       name: network-values
-      fieldPath: data.bridgeName
+      fieldPath: data.ctlplane.iface
     targets:
       - select:
           group: metallb.io

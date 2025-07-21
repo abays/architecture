@@ -1,7 +1,7 @@
 ---
 apiVersion: v1
 data:
-    bridgeName: ospbr
+    
     ctlplane:
         dnsDomain: ctlplane.example.com
         endpoint_annotations:
@@ -17,7 +17,7 @@ data:
               "cniVersion": "0.3.1",
               "name": "ctlplane",
               "type": "macvlan",
-              "master": "ospbr",
+                              "master": "enp7s0",
               "ipam": {
                 "type": "whereabouts",
                 "range": "192.168.122.0/24",
@@ -142,15 +142,7 @@ data:
               cidr: 192.168.144.0/24
               gateway: 192.168.144.1
               name: subnet1
-    datacentre:
-        net-attach-def: |
-            {
-              "cniVersion": "0.3.1",
-              "name": "datacentre",
-              "type": "bridge",
-              "bridge": "ospbr",
-              "ipam": {}
-            }
+    
     dns-resolver:
         config:
             search: []
@@ -339,11 +331,11 @@ data:
         config:
             - destination: 192.168.133.0/24
               next-hop-address: 192.168.122.1
-              next-hop-interface: ospbr
+              next-hop-interface: enp7s0
               table-id: 254
             - destination: 192.168.144.0/24
               next-hop-address: 192.168.122.1
-              next-hop-interface: ospbr
+              next-hop-interface: enp7s0
               table-id: 254
             - destination: 172.17.10.0/24
               next-hop-address: 172.17.0.1

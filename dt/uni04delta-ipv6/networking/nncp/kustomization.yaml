@@ -99,14 +99,14 @@ patches:
           destination: _replaced_
           metric: 150
           next-hop-address: _replaced_
-          next-hop-interface: ospbr
+          next-hop-interface: _replaced_
       - op: add
         path: /spec/desiredState/routes/config/-
         value:
           destination: "::/0"
           metric: 150
           next-hop-address: _replaced_
-          next-hop-interface: ospbr
+          next-hop-interface: _replaced_
 
   - target:
       kind: NodeNetworkConfigurationPolicy

@@ -104,3 +104,7 @@ data:
       expiration = 28800
   heat:
     enabled: true
+  ovn:
+    ovnController:
+      nicMappings:
+        datacentre: enp8s0

@@ -198,7 +198,7 @@ patches:
           destination: _replaced_
           metric: 150
           next-hop-address: _replaced_
-          next-hop-interface: ospbr
+          next-hop-interface: _replaced_
 
   - target:
       kind: NodeNetworkConfigurationPolicy
@@ -414,3 +414,14 @@ replacements:
           name: master-2
         fieldPaths:
           - spec.desiredState.routes.config.1.destination
+
+  # Next-hop-interface replacements for routing
+  - source:
+      kind: ConfigMap
+      name: network-values
+      fieldPath: data.ctlplane.iface
+    targets:
+      - select:
+          kind: NodeNetworkConfigurationPolicy
+        fieldPaths:
+          - spec.desiredState.routes.config.[next-hop-interface=_replaced_].next-hop-interface

@@ -67,7 +67,7 @@ data:
         "cniVersion": "0.3.1",
         "name": "ctlplane",
         "type": "macvlan",
-        "master": "ospbr",
+        "master": "enp7s0",
         "ipam": {
           "type": "whereabouts",
           "range": "2620:cf:cf:aaaa::0/64",
@@ -186,15 +186,7 @@ data:
         gateway: "2620:cf:cf:cf::1"
         name: subnet1
     mtu: 1500
-  datacentre:
-    net-attach-def: |
-      {
-        "cniVersion": "0.3.1",
-        "name": "datacentre",
-        "type": "bridge",
-        "bridge": "ospbr",
-        "ipam": {}
-      }
+
   ironic:
     bridgeName: ironic
     cidr: '2620:cf:cf:ffff::0/64'
@@ -237,4 +229,4 @@ data:
       metallb.universe.tf/loadBalancerIPs: "2620:cf:cf:bbbb::82"
   lbServiceType: LoadBalancer
   storageClass: local-storage
-  bridgeName: ospbr
+

@@ -134,7 +134,7 @@ spec:
     template:
       ovncontroller:
         nicMappings:
-          datacentre: ospbr
+          datacentre: enp6s0
           octavia: octbr
 ```
 

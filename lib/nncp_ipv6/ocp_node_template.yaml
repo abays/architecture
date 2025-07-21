@@ -67,7 +67,6 @@ spec:
         state: up
         type: ethernet
         mtu: 1500
-      - description: linux-bridge over ctlplane interface
         ipv6:
           address:
             - ip: _replaced_
@@ -76,17 +75,6 @@ spec:
           dhcp: false
         ipv4:
           enabled: false
-        name: _replaced_
-        state: up
-        type: linux-bridge
-        bridge:
-          options:
-            stp:
-              enabled: false
-          port:
-            - name: _replaced_
-              vlan: {}
-        mtu: 1500
   nodeSelector:
     kubernetes.io/hostname: _replaced_
     node-role.kubernetes.io/worker: ""
