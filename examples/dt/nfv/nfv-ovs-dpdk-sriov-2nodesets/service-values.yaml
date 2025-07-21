@@ -32,7 +32,7 @@ data:
   ovn:
     ovnController:
       nicMappings:
-        datacentre: ospbr
+        datacentre: ocpbr
 
   glance:
     customServiceConfig: |
