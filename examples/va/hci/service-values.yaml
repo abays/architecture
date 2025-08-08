@@ -104,3 +104,5 @@ data:
       expiration = 28800
   heat:
     enabled: true
+  tls:
+    caBundleSecretName: ""

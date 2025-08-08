@@ -94,3 +94,5 @@ data:
             - name: ceph
               mountPath: /etc/ceph
               readOnly: true
+  tls:
+    caBundleSecretName: ""

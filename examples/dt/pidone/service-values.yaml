@@ -25,3 +25,5 @@ data:
       replicas: 1
   swift:
     enabled: true
+  tls:
+    caBundleSecretName: ""

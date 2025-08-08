@@ -30,3 +30,15 @@ replacements:
           - spec.telemetry.template.autoscaling.aodh.preserveJobs
         options:
           create: true
+  # TLS CA bundle secret name
+  - source:
+      kind: ConfigMap
+      name: service-values
+      fieldPath: data.tls.caBundleSecretName
+    targets:
+      - select:
+          kind: OpenStackControlPlane
+        fieldPaths:
+          - spec.tls.caBundleSecretName
+        options:
+          create: true

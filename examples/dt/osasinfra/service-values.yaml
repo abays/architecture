@@ -120,3 +120,5 @@ data:
       enabled: true
     ceilometer:
       enabled: true
+  tls:
+    caBundleSecretName: ""

@@ -107,3 +107,5 @@ data:
       [ml2]
       type_drivers = geneve,vxlan,vlan,flat,local
       tenant_network_types = geneve,flat
+  tls:
+    caBundleSecretName: ""

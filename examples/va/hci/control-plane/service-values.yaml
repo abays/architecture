@@ -7,3 +7,5 @@ metadata:
     config.kubernetes.io/local-config: "true"
 data:
   preserveJobs: false
+  tls:
+    caBundleSecretName: ""

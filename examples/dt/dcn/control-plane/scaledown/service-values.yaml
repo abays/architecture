@@ -349,3 +349,5 @@ data:
             - name: ceph-az2
               mountPath: /etc/ceph
               readOnly: true
+  tls:
+    caBundleSecretName: ""

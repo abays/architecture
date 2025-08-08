@@ -76,3 +76,5 @@ data:
       customServiceConfig: |
         [filter_scheduler]
         enabled_filtes = AvailabilityZoneFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,PciPassthroughFilter,NUMATopologyFilter,AggregateInstanceExtraSpecsFilter
+  tls:
+    caBundleSecretName: ""

@@ -66,3 +66,5 @@ data:
       debug = true
       [ovs]
       igmp_snooping_enable = true
+  tls:
+    caBundleSecretName: ""

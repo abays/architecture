@@ -145,3 +145,5 @@ data:
 
   swift:
     enabled: true
+  tls:
+    caBundleSecretName: ""

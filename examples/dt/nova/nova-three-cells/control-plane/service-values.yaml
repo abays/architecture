@@ -57,3 +57,5 @@ data:
     templates:
       rabbitmq-cell2:
         replicas: 3
+  tls:
+    caBundleSecretName: ""

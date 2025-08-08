@@ -110,3 +110,5 @@ data:
 
   heat:
     enabled: true
+  tls:
+    caBundleSecretName: ""

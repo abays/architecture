@@ -292,3 +292,5 @@ spec:
       logging:
         enabled: false
         port: 10514
+  tls:
+    caBundleSecretName: ""
