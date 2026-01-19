@@ -14,21 +14,6 @@ data:
     caBundleSecretName: ""
 
   # --- Below are VA/DT-specific data ---
-  cinderVolumes:
-    ontap-iscsi:
-      customServiceConfig: |
-        [ontap]
-        volume_backend_name=ontap
-        volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
-        netapp_server_hostname=_replaced_
-        netapp_server_port=80
-        netapp_storage_protocol=iscsi
-        netapp_storage_family=ontap_cluster
-        consistencygroup_support=True
-      networkAttachments:
-        - storage
-      customServiceConfigSecrets:
-        - cinder-volume-ontap-secrets
   cinder-volume-ontap-secrets: |
     [ontap]
     netapp_login = _replaced_
@@ -44,29 +29,15 @@ data:
     customServiceConfig: |
       [DEFAULT]
       debug=True
-      enabled_backends = default_backend:cinder
-      [glance_store]
-      default_backend = default_backend
-      [default_backend]
-      description = Default cinder backend
-      cinder_store_auth_address = {{ .KeystoneInternalURL }}
-      cinder_store_user_name = {{ .ServiceUser }}
-      cinder_store_password = {{ .ServicePassword }}
-      cinder_store_project_name = service
-      cinder_catalog_info = volumev3::internalURL
-      cinder_use_multipath = true
-      [oslo_concurrency]
-      lock_path = /var/lib/glance/tmp
     databaseInstance: openstack
     glanceAPIs:
       default:
         preserveJobs: false
-        replicas: 3
-        type: split
+        replicas: 1
+        type: single
 
   swift:
     enabled: true
-
 
   octavia:
     enabled: true
