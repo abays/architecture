@@ -8,6 +8,11 @@ metadata:
     config.kubernetes.io/local-config: "true"
 data:
   nodeset:
+    env:
+      - name: RUNNER_IDLE_TIMEOUT
+        value: "1800"
+      - name: RUNNER_JOB_TIMEOUT
+        value: "7200"
     services:
       - bootstrap
       - configure-network

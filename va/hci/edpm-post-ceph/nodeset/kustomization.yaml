@@ -38,6 +38,18 @@ patches:
     path: extra_mounts.yaml
 
 replacements:
+  # Post-Ceph EDPM Ansible Runner environment
+  - source:
+      kind: ConfigMap
+      name: edpm-nodeset-values-post-ceph
+      fieldPath: data.nodeset.env
+    targets:
+      - select:
+          kind: OpenStackDataPlaneNodeSet
+        fieldPaths:
+          - spec.env
+        options:
+          create: true
   # Control plane custom service configs
   - source:
       kind: ConfigMap

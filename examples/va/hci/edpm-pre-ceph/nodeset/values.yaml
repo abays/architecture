@@ -16,6 +16,11 @@ data:
     # The public key that will have access to the dataplane computes via SSH
     public: CHANGEME3
   nodeset:
+    env:
+      - name: RUNNER_IDLE_TIMEOUT
+        value: "1800"
+      - name: RUNNER_JOB_TIMEOUT
+        value: "7200"
     ansible:
       ansibleUser: cloud-admin
       ansiblePort: 22
